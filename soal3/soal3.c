@@ -1,11 +1,6 @@
 #include <unistd.h>
 
 int main() {
-  pid_t pida = fork(), pidb = fork(), pidc = fork();
-  close(STDIN_FILENO);
-  close(STDOUT_FILENO);
-  close(STDERR_FILENO);
-
   if (fork() == 0) execl("/bin/mkdir", "mkdir", "-p","indomie", NULL);
   if (fork() == 0) execl("/usr/bin/unzip", "unzip", "-oq","jpg.zip", NULL);
   sleep(5);

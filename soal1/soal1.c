@@ -24,11 +24,6 @@ int main (int argc, char *argv[]) {
     printf("Third Argument must between 0-23 or *\n");
     exit(EXIT_FAILURE);
   }
-  int ext = strlen(argv[4]);
-  if (!(((&(argv[4][ext--]) == "h") || (&(argv[4][ext]) == "H")) && ((&(argv[4][ext--]) == "s") || (&(argv[4][ext]) == "S")) && (&(argv[4][ext--]) == "."))) {
-    printf("Forth Argument must be shell script\n");
-    exit(EXIT_FAILURE);
-  }
   time_t t;
   struct tm tm;
   pid_t pid = fork(), sid;
@@ -44,10 +39,8 @@ int main (int argc, char *argv[]) {
     t = time(NULL);
     tm = *localtime(&t);
     if ((tm.tm_sec == atoi(argv[1]) || ((strcmp(argv[1],"*")) == 0)) && (tm.tm_min == atoi(argv[2]) || ((strcmp(argv[2],"*")) == 0)) && (tm.tm_hour == atoi(argv[3]) || ((strcmp(argv[3],"*") == 0)))) {
-      if (fork()==0) {
-        execl("/bin/bash", "bash", argv[4], NULL);
-        sleep(1);
-      }
+      if (fork()==0) execl("/bin/bash", "bash", argv[4], NULL);
     }
+    sleep(1);
   }
 }
